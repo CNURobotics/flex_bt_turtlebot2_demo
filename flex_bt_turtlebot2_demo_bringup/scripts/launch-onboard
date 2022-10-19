@@ -1,0 +1,30 @@
+#!/usr/bin/bash
+
+echo "Launching the onboard software with use_sim_time=${USE_SIM_TIME:=True} ..."
+
+echo "Launch slam using ${LOCALIZATION:=slam}.launch ..."
+# To use other (e.g. amcl or cartographer, set LOCALIZATION environment variable (e.g. export LOCALIZATION=amcl)
+gnome-terminal --tab --title="Slam" -- ros2 launch flex_bt_turtlebot2_demo_bringup "${LOCALIZATION:=slam}.launch.py" use_sim_time:=${USE_SIM_TIME:=True}
+sleep 2
+
+echo "Launch ball detector ..."
+gnome-terminal --tab --title="Ball Detector" -- ros2 launch simple_ball_detector ball_detector.launch.py use_sim_time:=${USE_SIM_TIME:=True}
+sleep 2
+
+echo "Launch Navigation 2 setup ..."
+gnome-terminal --tab --title="Navigation 2" -- ros2 launch flex_bt_turtlebot2_demo_bringup nav2_turtlebot.launch.py use_sim_time:=${USE_SIM_TIME:=True}
+sleep 2
+
+echo "Launch FlexBE onboard ..."
+gnome-terminal --tab --title="FlexBE Onboard" -- ros2 launch flexbe_onboard behavior_onboard.launch.py use_sim_time:=${USE_SIM_TIME:=True}
+sleep 2
+
+if $USE_SIM_TIME ; then
+  echo "Using simulation time - should be tied to simulation not hardware!"
+else
+  echo ""
+  echo "Using wall clock time - should be tied to hardware not simulation!"
+  echo ""
+fi
+echo ""
+echo "Launch the OCS separately!"

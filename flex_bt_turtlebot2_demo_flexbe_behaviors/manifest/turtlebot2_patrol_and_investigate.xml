@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<behavior name="Turtlebot2 Patrol And Investigate">
+
+	<executable package_path="flex_bt_turtlebot2_demo_flexbe_behaviors.turtlebot2_patrol_and_investigate_sm" class="Turtlebot2PatrolAndInvestigateSM" />
+	<tagstring></tagstring>
+	<author>Josh Zutell</author>
+	<date>Fri Feb 04 2022</date>
+	<description>
+		Using Flexible Navigation with Navigation 2 Behavior Trees to control the Turtlebot2
+	</description>
+
+
+	<!-- Contained Behaviors -->
+
+	<!-- Available Parameters -->
+
+</behavior>

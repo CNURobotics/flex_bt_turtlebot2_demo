@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<root main_tree_to_execute="BlueBallBehavior">
+    <BehaviorTree ID="BlueBallBehavior">
+        <Sequence>
+          <Spin spin_dist="6.283185"/>
+          <BackUp backup_dist="0.25" backup_speed="0.1"/>
+          <Spin spin_dist="-6.283185"/>
+        </Sequence>
+    </BehaviorTree>
+</root>

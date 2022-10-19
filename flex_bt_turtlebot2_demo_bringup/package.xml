@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>flex_bt_turtlebot2_demo_bringup</name>
+  <version>0.0.0</version>
+  <description>Startup demonstration of flexible_behavior_trees with Turtlebot2</description>
+  <author email="joshua.zutell.18@cnu.edu">jmz919</author>
+  <maintainer email="robotics@cnu.edu">David Conner</maintainer>
+  <license>APACHE</license>
+  <url type="bugtracker">https://github.com/CNURobotics/flex_bt_turtlebot2_demo/issues</url>
+  <url type="repository">https://github.com/CNURobotics/flex_bt_turtlebot2_demo</url>
+  <url type="website">https://github.com/CNURobotics/flex_bt_turtlebot2_demo</url>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <exec_depend>cartographer_ros</exec_depend>
+  <depend>kobuki_ros</depend>
+  <depend>urg_node</depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

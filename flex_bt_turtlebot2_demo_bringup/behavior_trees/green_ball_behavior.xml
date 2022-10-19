@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<root main_tree_to_execute="GreenBallBehavior">
+    <BehaviorTree ID="GreenBallBehavior">
+        <Sequence>
+          <BackUp backup_dist="0.25" backup_speed="0.1"/>
+          <Wait wait_duration="2"/>
+          <BackUp backup_dist="0.25" backup_speed="0.1"/>
+        </Sequence>
+    </BehaviorTree>
+</root>

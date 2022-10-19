@@ -1,0 +1,30 @@
+#!/usr/bin/bash
+
+echo "Launching the onboard software with use_sim_time=${USE_SIM_TIME:=True} ..."
+
+echo "Launch slam using ${LOCALIZATION:=slam}.launch ..."
+# To use other (e.g. amcl or cartographer, set LOCALIZATION environment variable (e.g. export LOCALIZATION=amcl)
+tmux new-window -n localization -tturtlebot-hw ros2 launch flex_bt_turtlebot2_demo_bringup ${LOCALIZATION:=slam}.launch.py use_sim_time:=${USE_SIM_TIME:=True}
+sleep 1
+
+echo "Launch ball detector ..."
+tmux new-window -n ball_detector -tturtlebot-hw ros2 launch simple_ball_detector ball_detector.launch.py use_sim_time:=${USE_SIM_TIME:=True}
+sleep 1
+
+echo "Launch Navigation 2 setup ..."
+tmux new-window -n flex_nav  -tturtlebot-hw ros2 launch flex_bt_turtlebot2_demo_bringup nav2_turtlebot.launch.py use_sim_time:=${USE_SIM_TIME:=True}
+sleep 1
+
+echo "Launch FlexBE onboard ..."
+tmux new-window -n flexbe_onboard -tturtlebot-hw  ros2 launch flexbe_onboard behavior_onboard.launch.py use_sim_time:=${USE_SIM_TIME:=True}
+
+if ${USE_SIM_TIME:=True} ; then
+  echo "Using simulation time - should be tied to simulation not hardware!"
+else
+  echo ""
+  echo "Using wall clock time - should be tied to hardware not simulation!"
+  echo ""
+fi
+
+echo ""
+echo "Launch the OCS separately!"
