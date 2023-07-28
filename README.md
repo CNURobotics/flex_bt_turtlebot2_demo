@@ -72,7 +72,7 @@ ros2 run flexbe_app nwjs_install
 
 > Note: With colcon, this will need to be re-run anytime the `install` folder is deleted as it is installed relative to the `flexbe_app` package.
 
- This version presumes use of the [FlexBE App] for the operator interface, which depends on states and behaviors that are exported as part of individual package.xml.
+ This version presumes use of the [FlexBE App] for the operator interface, which depends on states and behaviors that are exported as part of individual `package.xml`.
 
 
 ## Operation
@@ -108,9 +108,6 @@ There are also associated `tmux` versions if preferred.
 
 Using the above scripts will start the required software for demonstration.  See those scripts for details.
 
->NOTE: With both tmux and launch scripts, the terminal will close if the started
-> nodes completely shutdown. Manually starting each script may be warranted for debugging.
-
 These scripts also make use of the following environment variables:
 <pre>
 export WORLD_MODEL=
@@ -122,11 +119,45 @@ export WORLD_MODEL=gazebo_creech_world #( if not set by launch, see the `chris_w
 Typically the `setup.bash` is created by the setup script created during our standard
 install process [CHRISLab Install] .
 
+>NOTE: With both tmux and launch scripts, the terminal will close if the started
+> nodes completely shutdown. Manually starting each script as described below may be warranted for debugging.
+
+### Manual start up of simulation demonstration:
+
+To launch the simulation in separate terminals for debugging, use these commands in each terminal:
+
+<pre>
+# Simulation
+ros2 launch chris_world_models ${WORLD_MODEL:=gazebo_creech_world}.launch.py use_sim_time:=True
+ros2 launch chris_ros_turtlebot2 turtlebot_gazebo.launch.py use_sim_time:=True
+
+# Onboard
+# To use other (e.g. fake, amcl, or cartographer, set LOCALIZATION environment variable (e.g. export LOCALIZATION=amcl)
+# To use other (e.g. flex, flex_multi, or flex_four_level, set FLEX_NAV_SETUP environment variable (e.g. export LOCALIZATION=flex)
+ros2 launch flex_bt_turtlebot2_demo_bringup "${LOCALIZATION:=fake}.launch.py" use_sim_time:=True
+ros2 launch simple_ball_detector ball_detector.launch.py use_sim_time:=True
+ros2 launch flex_bt_turtlebot2_demo_bringup nav2_turtlebot.launch.py use_sim_time:=True
+ros2 launch flexbe_onboard behavior_onboard.launch.py use_sim_time:=True
+
+# Operator Control Station (OCS)
+ros2 launch flex_bt_turtlebot2_demo_bringup rviz.launch.py use_sim_time:=True
+ros2 run flexbe_mirror behavior_mirror_sm --ros-args --remap __node:="behavior_mirror" -p use_sim_time:=True
+ros2 run flexbe_widget be_launcher --ros-args --remap __node:="behavior_launcher" -p use_sim_time:=True
+ros2 run flexbe_app run_app --ros-args --remap __node:="flexbe_app" -p use_sim_time:=True
+
+</pre>
+
 -----
 
-   > From Nav2 instructions: After starting, the robot initially has no idea where it is. By default, Nav2 waits for you to give it an approximate starting position. Take a look at where the robot is in the Gazebo world, and find that spot on the map. Set the initial pose by clicking the “2D Pose Estimate” button in RViz, and then down clicking on the map in that location. You set the orientation by dragging forward from the down click.
+  > From Nav2 instructions: After starting, the robot initially has no idea where it is using SLAM techiques. 
+  > By default, Nav2 waits for you to give it an approximate starting position.
+  > Take a look at where the robot is in the Gazebo world, and find that spot on the map. 
+  > Set the initial pose by clicking the “2D Pose Estimate” button in RViz, and then 
+  > clicking on the map in that location. 
+  > You set the orientation by dragging forward from the down click.
 
-    > Note: 30-June-22 Humble release did not update static map layer, which prevented planning with AMCL.  Disable static layer in params/nav2_turtlebot_params.yaml if you have issues with AMCL.
+  > Note: 30-June-22 Humble release did not update static map layer, which prevented planning with AMCL.  
+  > Disable static layer in params/nav2_turtlebot_params.yaml if you have issues with AMCL.
 
 ### Visualization
 
@@ -159,6 +190,8 @@ install process [CHRISLab Install] .
 
   > NOTE: The simulation automatically starts RViz alongside the ROS 2 Cartographer command; verify topic settings as needed if using that version.
 
+  > Note: The RViz configuration for the map topic uses `Transient Local` for durability. 
+  > If the map server is using `Volatile`, then you will need to change to `Volatile` in order to visualize the global map.
 
 ### FlexBE Operation
 
@@ -170,12 +203,6 @@ First load the desired behavior through the `FlexBE Behavior Dashboard` tab.
 
   * `Turtlebot2 Nav2 Multi-BTs`
     * Basic navigation using multiple separate BTs
-
-  * `Turtlebot2 Patrol`
-    * Allows user to input location of charging station and multiple waypoints to patrol using RVIZ.
-    * Patrols and periodically moves to recharge station
-    * This uses a battery status topic.  A simple simulated battery drain and charge can be run with:
-      * `ros2 launch flex_bt_turtlebot2_demo_bringup turtlebot_sim_battery.launch.py use_sim_time:=True `
 
   * `Turtlebot2 Patrol and Investigate`
     * Allows user to input location of charging station and multiple waypoints to patrol using RVIZ.
@@ -193,7 +220,6 @@ First load the desired behavior through the `FlexBE Behavior Dashboard` tab.
             You can edit the launch file to change quantities, or use the `add_balls.launch.py` and edit the `param/balls.csv` file
             if you want to start with specified locations.
 
-
 Execute the behavior via the `FlexBE Runtime Control` tab.
 * The system requires the operator to input a `2D Nav Goal` via the `RViz` screen
   * If the system is in `low` autonomy or higher, the system will request a global plan as soon as the goal is received
@@ -206,7 +232,10 @@ Execute the behavior via the `FlexBE Runtime Control` tab.
   * In `full` autonomy, the system will automatically transition to requesting a new goal
   * In any autonomy level less than `full`, the system will require an operator decision to continue
 
-Whenever a plan is being executed, the `FlexBE` state machine transitions to a concurrent node that uses on line  planners to refine the plans as the robot moves, and also monitors the Turtlebot bumper status for collision.  The operator can terminate the execution early by selecting the appropriate transition in the `FlexBE UI`.  If this low level plan fails, the robot will request permission to initiate a recovery behavior; in `full` autonomy the system automatically initiates the recovery.
+Whenever a plan is being executed, the `FlexBE` state machine transitions to a concurrent node that uses on line  planners to refine the plans as the robot moves, and also monitors the Turtlebot bumper status for collision.  
+The operator can terminate the execution early by selecting the appropriate transition in the `FlexBE UI`.  
+If this low level plan fails, the robot will request permission to initiate a recovery behavior; 
+in `full` autonomy the system automatically initiates the recovery.
 
 ---
 

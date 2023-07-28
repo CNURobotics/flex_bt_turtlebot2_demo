@@ -42,6 +42,7 @@ from flexbe_core.proxy import ProxySubscriberCached
 
 from geometry_msgs.msg import PoseStamped
 
+
 class GetWaypointsState(EventState):
     """
     Grabs the most recent published PoseStampeds to use as waypoints.
@@ -60,17 +61,17 @@ class GetWaypointsState(EventState):
 
     """
 
-    def __init__(self, timeout, topic = 'move_base_simple/goal'):
+    def __init__(self, timeout, topic='move_base_simple/goal'):
         """Constructor"""
-        super(GetWaypointsState, self).__init__(outcomes=['done', 'canceled'], output_keys=['waypoints'])
+        super().__init__(outcomes=['done', 'canceled'], output_keys=['waypoints'])
 
-        ProxySubscriberCached._initialize(GetWaypointsState._node)
+        ProxySubscriberCached.initialize(GetWaypointsState._node)
 
-        self._topic      = topic
-        self._sub        = ProxySubscriberCached({self._topic: PoseStamped})
-        self._waypoints  = []
+        self._topic = topic
+        self._sub = ProxySubscriberCached({self._topic: PoseStamped})
+        self._waypoints = []
 
-        self._timeout    = Duration(seconds=timeout)
+        self._timeout = Duration(seconds=timeout)
         self._start_time = None
         self._return = None
 
@@ -94,14 +95,14 @@ class GetWaypointsState(EventState):
             self._start_time = self._node.get_clock().now()
 
         if len(self._waypoints) > 1:
-           if self._node.get_clock().now().nanoseconds - self._start_time.nanoseconds > self._timeout.nanoseconds:
+            if self._node.get_clock().now().nanoseconds - self._start_time.nanoseconds > self._timeout.nanoseconds:
                 # Collected enough, and timeout
                 Logger.loginfo('%s  Finalized waypoint list with %d points' % (self.name, len(self._waypoints)))
                 userdata.waypoints = self._waypoints
                 self._return = 'done'
                 return self._return
         else:
-           if self._node.get_clock().now().nanoseconds - self._start_time.nanoseconds > self._timeout.nanoseconds:
+            if self._node.get_clock().now().nanoseconds - self._start_time.nanoseconds > self._timeout.nanoseconds:
                 Logger.loghint('%s  Input a new 2D Nav goal (e.g. via RViz) as waypoint (2 required!) ' % (self.name))
                 self._start_time = self._node.get_clock().now()
 
@@ -122,4 +123,5 @@ class GetWaypointsState(EventState):
                 self._return = 'done'
                 Logger.loginfo('%s  Accepting %d waypoints with forced transition' % (self.name, len(self._waypoints)))
             else:
-                Logger.loginfo('%s  Ignoring %d waypoints with forced transition %s' % (self.name, len(self._waypoints), self._manual_transition_requested))
+                Logger.loginfo('%s  Ignoring %d waypoints with forced transition %s' % (self.name, len(self._waypoints),
+                                                                                        self._manual_transition_requested))

@@ -1,5 +1,4 @@
 from launch import LaunchDescription
-from launch_ros.actions import Node
 from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
 from launch.substitutions import LaunchConfiguration
 from launch.launch_description_sources import PythonLaunchDescriptionSource
@@ -11,7 +10,7 @@ flex_bt_demo_states_test_dir = get_package_share_directory('flex_bt_turtlebot2_d
 
 path = flex_bt_demo_states_test_dir + "/test"
 
-testcases  = path + "/charging_state.test \n"
+testcases = path + "/charging_state.test \n"
 testcases += path + "/check_battery_life_state.test \n"
 testcases += path + "/get_waypoints_state.test \n"
 testcases += path + "/send_waypoints_state.test"

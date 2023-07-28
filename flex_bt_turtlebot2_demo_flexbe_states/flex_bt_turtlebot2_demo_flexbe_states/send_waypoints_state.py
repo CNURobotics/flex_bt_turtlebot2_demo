@@ -39,7 +39,6 @@ from flexbe_core import EventState, Logger
 
 from flexbe_core.proxy import ProxySubscriberCached
 
-from geometry_msgs.msg import PoseStamped
 
 class SendWaypointsState(EventState):
     """
@@ -52,14 +51,15 @@ class SendWaypointsState(EventState):
 
     <= done          Goal PoseStamped is available.
     <= canceled      Canceled sending a goal
-
     """
 
     def __init__(self):
         """Constructor"""
-        super(SendWaypointsState, self).__init__(outcomes=['done', 'canceled'], input_keys=['waypoints'], output_keys=['waypoints', 'goal'])
+        super(SendWaypointsState, self).__init__(outcomes=['done', 'canceled'],
+                                                 input_keys=['waypoints'],
+                                                 output_keys=['waypoints', 'goal'])
 
-        ProxySubscriberCached._initialize(SendWaypointsState._node)
+        ProxySubscriberCached.initialize(SendWaypointsState._node)
         self._return = None
 
     def execute(self, userdata):
@@ -74,6 +74,6 @@ class SendWaypointsState(EventState):
             userdata.waypoints.append(userdata.goal)
             Logger.loginfo('%s  Passing next waypoint ' % (self.name))
 
-            self._return  = 'done'
+            self._return = 'done'
         else:
             self._return = 'canceled'

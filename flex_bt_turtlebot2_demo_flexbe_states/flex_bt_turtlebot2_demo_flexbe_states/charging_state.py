@@ -36,7 +36,6 @@
 ###############################################################################
 
 from __future__ import division
-import math
 
 from flexbe_core import EventState, Logger
 from flexbe_core.proxy import ProxyPublisher, ProxySubscriberCached
@@ -46,20 +45,20 @@ from sensor_msgs.msg import BatteryState
 
 
 class ChargingState(EventState):
-    '''
+    """
     Simulated charging state
     -- charger_topic           string   Topic to publish charging with
     -- battery_topic           string   Topic to subscribe for battery status
     -- battery_threshold       double   Battery percentage to charge to
 
     <= done                         Given time has passed.
-    '''
+    """
 
     def __init__(self, charger_topic, battery_topic, battery_threshold):
-        super(ChargingState, self).__init__(outcomes = ['done', 'failed'])
+        super().__init__(outcomes=['done', 'failed'])
 
-        ProxyPublisher._initialize(ChargingState._node)
-        ProxySubscriberCached._initialize(ChargingState._node)
+        ProxyPublisher.initialize(ChargingState._node)
+        ProxySubscriberCached.initialize(ChargingState._node)
 
         self._charger_topic = charger_topic
         self._battery_topic = battery_topic
@@ -70,7 +69,6 @@ class ChargingState(EventState):
         self._battery_threshold = battery_threshold
         self._battery_level = 0
         self._return = None
-
 
     def execute(self, userdata):
         if self._return:
@@ -88,8 +86,6 @@ class ChargingState(EventState):
                 self._return = 'done'
                 Logger.loginfo('%s  Done charging - battery level at %f' % (self.name, self._battery_level))
                 return self._return
-                
-
 
     def on_enter(self, userdata):
         self._return = None

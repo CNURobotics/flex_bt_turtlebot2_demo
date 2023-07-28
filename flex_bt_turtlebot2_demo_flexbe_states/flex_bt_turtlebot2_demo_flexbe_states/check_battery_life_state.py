@@ -35,22 +35,22 @@
 #       POSSIBILITY OF SUCH DAMAGE.
 ###############################################################################
 
-from flexbe_core import EventState, Logger
+from flexbe_core import EventState
 
 
 class CheckBatteryLifeState(EventState):
-    '''
+    """
     Checks if the robot needs to go to its charging station
 
     ># battery_life	   double   The current battery life of a robot
 
     <= true     Returned if the robot needs to go to charging station
     <= false    Returned if the robot does not need to go to charging station
-    '''
+    """
 
     def __init__(self, battery_threshold):
-        super(CheckBatteryLifeState, self).__init__(outcomes=['true', 'false'],
-                                                  input_keys=['battery_life'])
+        super().__init__(outcomes=['true', 'false'],
+                         input_keys=['battery_life'])
         self._outcome = 'false'
         self._battery_threshold = battery_threshold
 

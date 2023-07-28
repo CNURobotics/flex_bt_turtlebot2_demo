@@ -2,17 +2,18 @@
 
 <behavior name="Turtlebot2 Nav2 Multi-BTs">
 
-	<executable package_path="flex_bt_turtlebot2_demo_flexbe_behaviors.turtlebot2_nav2_multi_bts_sm" class="Turtlebot2Nav2MultiBTsSM" />
-	<tagstring></tagstring>
-	<author>Josh Zutell</author>
-	<date>Fri Feb 04 2022</date>
-	<description>
-		Using Flexible Navigation with Behavior Trees to control the Turtlebot2
-	</description>
+    <executable package_path="flex_bt_turtlebot2_demo_flexbe_behaviors.turtlebot2_nav2_multi_bts_sm" class="Turtlebot2Nav2MultiBTsSM" />
+    <tagstring></tagstring>
+    <author>Josh Zutell</author>
+    <date>Fri Feb 04 2022</date>
+    <description>
+        Using Flexible Navigation with Behavior Trees to control the Turtlebot2
+
+    </description>
 
 
-	<!-- Contained Behaviors -->
+    <!-- Contained Behaviors -->
 
-	<!-- Available Parameters -->
+    <!-- Available Parameters -->
 
 </behavior>

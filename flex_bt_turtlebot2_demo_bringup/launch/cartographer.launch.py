@@ -36,9 +36,6 @@ def generate_launch_description():
     resolution = LaunchConfiguration('resolution', default='0.05')
     publish_period_sec = LaunchConfiguration('publish_period_sec', default='1.0')
 
-    rviz_config_dir = os.path.join(flex_bt_turtlebot2_bringup_prefix,
-                                   'rviz', 'flex_bt_turtlebot2_demo.rviz')
-
     return LaunchDescription([
         DeclareLaunchArgument(
             'cartographer_config_dir',
