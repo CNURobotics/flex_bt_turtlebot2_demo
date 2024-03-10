@@ -63,7 +63,7 @@ if [ ! -d "${pack}/${pack}" ]; then
     exit
 fi
 
-if [ ! -f "${WORKSPACE_ROOT}/install/${pack}/local/lib/python3.10/dist-packages/${pack}/${beh}_sm.py" ]; then
+if [ ! -f "${WORKSPACE_ROOT}/install/${pack}/lib/python3.10/site-packages/${pack}/${beh}_sm.py" ]; then
     echo ""
     echo -e "\e[91m Behavior '${beh}' implementation does not exist in install folder for '${pack}' package!\033[0m"
     echo ""
@@ -77,7 +77,7 @@ fi
 
 # Begin the work
 echo "Copying '${beh}' implementation to '${pack}' under '${PWD}' ..."
-cp ${WORKSPACE_ROOT}/install/${pack}/local/lib/python3.10/dist-packages/${pack}/${beh}_sm.py ./${pack}/${pack}/${beh}_sm.py
+cp ${WORKSPACE_ROOT}/install/${pack}/lib/python3.10/site-packages/${pack}/${beh}_sm.py ./${pack}/${pack}/${beh}_sm.py
 
 if test $? -eq 0; then
     echo "Copying '${beh}.xml' manifest to '${pack}' ..."
