@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<root main_tree_to_execute="GreenBallBehavior">
+<root main_tree_to_execute="GreenBallBehavior" BTCPP_format="4">
     <BehaviorTree ID="GreenBallBehavior">
         <Sequence>
           <BackUp backup_dist="0.25" backup_speed="0.1"/>

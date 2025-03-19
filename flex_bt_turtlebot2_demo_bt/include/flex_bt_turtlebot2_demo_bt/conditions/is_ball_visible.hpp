@@ -6,7 +6,7 @@
 #include <mutex>
 
 #include "rclcpp/rclcpp.hpp"
-#include "behaviortree_cpp_v3/condition_node.h"
+#include "behaviortree_cpp/condition_node.h"
 #include "ball_detector_msgs/msg/ball.hpp"
 #include "ball_detector_msgs/msg/ball_list.hpp"
 #include "geometry_msgs/msg/point.hpp"
@@ -20,7 +20,7 @@ class IsBallVisibleCondition : public BT::ConditionNode
 public:
   IsBallVisibleCondition(
     const std::string & condition_name,
-    const BT::NodeConfiguration & conf);
+    const BT::NodeConfig & conf);
 
   IsBallVisibleCondition() = delete;
 

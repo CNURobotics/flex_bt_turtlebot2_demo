@@ -5,7 +5,7 @@ find_package(ament_cmake REQUIRED)
 find_package(ball_detector_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(nav2_behavior_tree REQUIRED)
-find_package(behaviortree_cpp_v3 REQUIRED)
+find_package(behaviortree_cpp REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(rclcpp_action REQUIRED)
 find_package(std_msgs REQUIRED)
@@ -16,7 +16,7 @@ set(dependencies
   rclcpp_action
   std_msgs
   nav2_behavior_tree
-  behaviortree_cpp_v3
+  behaviortree_cpp
   ball_detector_msgs
   geometry_msgs
 )

@@ -2,7 +2,7 @@
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
 	<name>flex_bt_turtlebot2_demo_flexbe_states</name>
-	<version>0.0.0</version>
+	<version>0.0.1</version>
 	<description>
 		FlexBE state implementations to demonstrate flexible_behavior_trees using ROS 2 Navigation 2 and
 		CHRISLab TurtleBot2 setup in simulation and hardware

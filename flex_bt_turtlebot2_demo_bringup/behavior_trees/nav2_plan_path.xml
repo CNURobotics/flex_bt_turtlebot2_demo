@@ -1,10 +1,11 @@
-<root>
+<?xml version="1.0"?>
+<root BTCPP_format="4" main_tree_to_execute="PlanPath">
     <BehaviorTree ID="PlanPath">
-      <RateController hz="1.0">
-        <RecoveryNode number_of_retries="1" name="ComputePathToPose">
-          <ComputePathToPose goal="{goal}" path="{path}" planner_id="GridBased"/>
-          <ClearEntireCostmap name="ClearGlobalCostmap-Context" service_name="global_costmap/clear_entirely_global_costmap"/>
-        </RecoveryNode>
-      </RateController>
+        <RateController hz="1.0">
+            <RecoveryNode number_of_retries="1" name="ComputePathToPose">
+                <ComputePathToPose goal="{goal}" path="{path}" planner_id="GridBased"/>
+                <ClearEntireCostmap name="ClearGlobalCostmap-Context" service_name="global_costmap/clear_entirely_global_costmap"/>
+            </RecoveryNode>
+        </RateController>
     </BehaviorTree>
 </root>

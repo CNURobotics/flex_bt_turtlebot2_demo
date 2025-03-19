@@ -1,9 +1,5 @@
 #!/usr/bin/bash
 
-echo "Kill any existing ROS2 daemon ..."
-ros2 daemon stop  # to avoid https://github.com/ros2/ros2cli/issues/582
-
-
 echo "Launching Gazebo simulation environment ..."
 gnome-terminal --tab --title="Gazebo" --  ros2 launch chris_world_models ${WORLD_MODEL:=gazebo_creech_world}.launch.py use_sim_time:=True
 

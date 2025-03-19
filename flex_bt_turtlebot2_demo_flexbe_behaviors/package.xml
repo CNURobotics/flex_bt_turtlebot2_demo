@@ -1,6 +1,6 @@
 <package format="3">
   <name>flex_bt_turtlebot2_demo_flexbe_behaviors</name>
-  <version>0.0.0</version>
+  <version>0.0.1</version>
   <description>
     Behaviors to demonstrate flexible_behavior_trees using ROS 2 Navigation 2 and
     CHRISLab TurtleBot2 setup in simulation and hardware

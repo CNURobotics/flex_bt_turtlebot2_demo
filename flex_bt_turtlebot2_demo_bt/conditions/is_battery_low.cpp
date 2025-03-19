@@ -7,7 +7,7 @@ namespace flex_bt_turtlebot
 
 IsBatteryLowCondition::IsBatteryLowCondition(
   const std::string & condition_name,
-  const BT::NodeConfiguration & conf)
+  const BT::NodeConfig & conf)
 : BT::ConditionNode(condition_name, conf),
   battery_topic_("/battery_status"),
   min_battery_(0.0),
@@ -63,7 +63,7 @@ void IsBatteryLowCondition::batteryCallback(sensor_msgs::msg::BatteryState::Shar
 
 }
 
-#include "behaviortree_cpp_v3/bt_factory.h"
+#include "behaviortree_cpp/bt_factory.h"
 BT_REGISTER_NODES(factory)
 {
   factory.registerNodeType<flex_bt_turtlebot::IsBatteryLowCondition>("FlexBtIsBatteryLow");

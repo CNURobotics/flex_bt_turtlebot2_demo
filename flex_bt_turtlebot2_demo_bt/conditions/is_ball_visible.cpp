@@ -7,7 +7,7 @@ namespace flex_bt_turtlebot
 
 IsBallVisibleCondition::IsBallVisibleCondition(
   const std::string & condition_name,
-  const BT::NodeConfiguration & conf)
+  const BT::NodeConfig & conf)
 : BT::ConditionNode(condition_name, conf),
   ball_list_topic_("/ball_detector/balls")
 {
@@ -56,7 +56,7 @@ void IsBallVisibleCondition::ballCallback(ball_detector_msgs::msg::BallList::Sha
 
 }
 
-#include "behaviortree_cpp_v3/bt_factory.h"
+#include "behaviortree_cpp/bt_factory.h"
 BT_REGISTER_NODES(factory)
 {
   factory.registerNodeType<flex_bt_turtlebot::IsBallVisibleCondition>("IsBallVisible");

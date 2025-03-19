@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
-<root main_tree_to_execute="RedBallBehavior">
+<root BTCPP_format="4" main_tree_to_execute="RedBallBehavior">
     <BehaviorTree ID="RedBallBehavior">
         <Sequence>
-          <Spin spin_dist="6.283185"/>
-          <Spin spin_dist="-6.283185"/>
+            <Spin spin_dist="6.283185"/>
+            <Spin spin_dist="-6.283185"/>
         </Sequence>
     </BehaviorTree>
 </root>

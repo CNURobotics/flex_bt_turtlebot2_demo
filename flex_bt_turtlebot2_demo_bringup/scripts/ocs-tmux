@@ -22,8 +22,11 @@ tmux new-window -n flexbe_launcher -tturtlebot-ocs ros2 run flexbe_widget be_lau
 echo "Wait 2 seconds for Launcher startup ..."
 sleep 2
 
-echo "Launch FlexBE App ..."
-tmux new-window -n flexbe_app -tturtlebot-ocs  -- ros2 run flexbe_app run_app --ros-args --remap name:="flexbe_app" use_sim_time:=${USE_SIM_TIME:=True}
+echo "Launch FlexBE WebUI Server ..."
+tmux new-window -n flexbe_webui_server -tturtlebot-ocs  -- ros2 launch flexbe_webui flexbe_ocs.launch.py headless:=True use_sim_time:=${USE_SIM_TIME:=True}
+
+echo "Launch FlexBE WebUI Client ..."
+tmux new-window -n flexbe_webui_client -tturtlebot-ocs  -- ros2 run flexbe_webui webui_client use_sim_time:=${USE_SIM_TIME:=True}
 
 if $USE_SIM_TIME ; then
   echo "Using simulation time - should be tied to simulation not hardware!"

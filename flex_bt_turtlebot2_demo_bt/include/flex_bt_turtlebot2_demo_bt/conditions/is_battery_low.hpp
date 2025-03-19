@@ -7,7 +7,7 @@
 
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/battery_state.hpp"
-#include "behaviortree_cpp_v3/condition_node.h"
+#include "behaviortree_cpp/condition_node.h"
 
 namespace flex_bt_turtlebot
 {
@@ -17,7 +17,7 @@ class IsBatteryLowCondition : public BT::ConditionNode
 public:
   IsBatteryLowCondition(
     const std::string & condition_name,
-    const BT::NodeConfiguration & conf);
+    const BT::NodeConfig & conf);
 
   IsBatteryLowCondition() = delete;
 
